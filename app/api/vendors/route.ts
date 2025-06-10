@@ -68,7 +68,7 @@ export async function GET(request: NextRequest) {
     let countQuery = vendorsQuery.replace('SELECT v.*', 'SELECT COUNT(*)');
     countQuery = countQuery.substring(0, countQuery.indexOf('ORDER BY'));
     
-    const totalResult = await prisma.$queryRawUnsafe(countQuery, ...queryParams.slice(0, -2));
+    const totalResult = await prisma.$queryRawUnsafe<any[]>(countQuery, ...queryParams.slice(0, -2));
     const totalVendors = parseInt(totalResult[0].count || '0');
     
     console.log(`Found ${vendors.length} vendors out of ${totalVendors} total`);
