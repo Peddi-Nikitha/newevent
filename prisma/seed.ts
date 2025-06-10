@@ -14,7 +14,7 @@ async function main() {
     create: {
       email: 'admin@happyhappenings.com',
       fullname: 'Admin User',
-      passwordHash: adminPasswordHash,
+      passwordhash: adminPasswordHash,
       role: UserRole.ADMIN,
       phone: '+1234567890',
     },
@@ -30,7 +30,7 @@ async function main() {
     create: {
       email: 'customer@example.com',
       fullname: 'John Customer',
-      passwordHash: customerPasswordHash,
+      passwordhash: customerPasswordHash,
       role: UserRole.CUSTOMER,
       phone: '+1987654321',
     },
@@ -48,7 +48,7 @@ async function main() {
     create: {
       email: 'photographer@example.com',
       fullname: 'Mike Photographer',
-      passwordHash: vendorPasswordHash,
+      passwordhash: vendorPasswordHash,
       role: UserRole.VENDOR,
       phone: '+1567891234',
       vendor: {
@@ -75,7 +75,7 @@ async function main() {
     create: {
       email: 'catering@example.com',
       fullname: 'Lisa Caterer',
-      passwordHash: vendorPasswordHash,
+      passwordhash: vendorPasswordHash,
       role: UserRole.VENDOR,
       phone: '+1456789123',
       vendor: {
@@ -102,7 +102,7 @@ async function main() {
     create: {
       email: 'venue@example.com',
       fullname: 'Robert Venue',
-      passwordHash: vendorPasswordHash,
+      passwordhash: vendorPasswordHash,
       role: UserRole.VENDOR,
       phone: '+1345678912',
       vendor: {
