@@ -51,7 +51,7 @@ async function main() {
       passwordhash: vendorPasswordHash,
       role: UserRole.VENDOR,
       phone: '+1567891234',
-      vendor: {
+      Vendor: {
         create: {
           businessname: 'Perfect Shots Photography',
           category: VendorCategory.PHOTOGRAPHY,
@@ -78,7 +78,7 @@ async function main() {
       passwordhash: vendorPasswordHash,
       role: UserRole.VENDOR,
       phone: '+1456789123',
-      vendor: {
+      Vendor: {
         create: {
           businessname: 'Delicious Bites Catering',
           category: VendorCategory.CATERING,
@@ -105,7 +105,7 @@ async function main() {
       passwordhash: vendorPasswordHash,
       role: UserRole.VENDOR,
       phone: '+1345678912',
-      vendor: {
+      Vendor: {
         create: {
           businessname: 'Elegant Events Hall',
           category: VendorCategory.VENUE,
