@@ -17,7 +17,7 @@ export async function PUT(request: NextRequest) {
       );
     }
     
-    const userId = session.user.id;
+    const userid = session.user.id;
     const { currentPassword, newPassword } = await request.json();
     
     if (!currentPassword || !newPassword) {
@@ -36,7 +36,7 @@ export async function PUT(request: NextRequest) {
     
     // Get the user from the database to verify the current password
     const user = await prisma.user.findUnique({
-      where: { id: userId },
+      where: { id: userid },
     });
     
     if (!user) {
@@ -61,7 +61,7 @@ export async function PUT(request: NextRequest) {
     
     // Update the password
     await prisma.user.update({
-      where: { id: userId },
+      where: { id: userid },
       data: { passwordhash: hashedPassword },
     });
     

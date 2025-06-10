@@ -34,8 +34,8 @@ async function main() {
       return;
     }
     
-    const userId = userResult[0].id;
-    console.log(`Using user ID: ${userId}`);
+    const userid = userResult[0].id;
+    console.log(`Using user ID: ${userid}`);
 
     // Determine the events table name
     const eventsTable = tables.find(t => t.table_name.toLowerCase() === 'event' || t.table_name.toLowerCase() === 'events');
@@ -55,10 +55,10 @@ async function main() {
     console.log(`Columns in ${eventsTable.table_name}:`, columns.map(c => c.column_name));
 
     // Determine column names
-    const userIdCol = columns.find(c => c.column_name.toLowerCase() === 'userid' || c.column_name.toLowerCase() === 'user_id');
+    const useridCol = columns.find(c => c.column_name.toLowerCase() === 'userid' || c.column_name.toLowerCase() === 'user_id');
     const eventTypeCol = columns.find(c => c.column_name.toLowerCase() === 'eventtype' || c.column_name.toLowerCase() === 'event_type');
     
-    if (!userIdCol || !eventTypeCol) {
+    if (!useridCol || !eventTypeCol) {
       console.error('Required columns not found in events table!');
       return;
     }
@@ -77,7 +77,7 @@ async function main() {
       // Create the insert query based on the table and column names
       const insertQuery = `
         INSERT INTO "${eventsTable.table_name}" (
-          "${userIdCol.column_name}", 
+          "${useridCol.column_name}", 
           "${eventTypeCol.column_name}", 
           location, 
           date, 
@@ -86,7 +86,7 @@ async function main() {
           "updatedAt"
         )
         VALUES (
-          '${userId}', 
+          '${userid}', 
           '${eventType}', 
           '${location}', 
           '${date.toISOString()}', 

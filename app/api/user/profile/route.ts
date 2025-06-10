@@ -16,7 +16,7 @@ export async function PUT(request: NextRequest) {
       );
     }
     
-    const userId = session.user.id;
+    const userid = session.user.id;
     const { fullname, phone } = await request.json();
     
     if (!fullname) {
@@ -27,7 +27,7 @@ export async function PUT(request: NextRequest) {
     }
     
     const updatedUser = await prisma.user.update({
-      where: { id: userId },
+      where: { id: userid },
       data: {
         fullname,
         phone: phone || null,
