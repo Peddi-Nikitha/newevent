@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
     console.log('Executing vendors query:', vendorsQuery, queryParams);
     
     // Execute the raw query
-    const vendors = await prisma.$queryRawUnsafe(vendorsQuery, ...queryParams);
+    const vendors = await prisma.$queryRawUnsafe<any[]>(vendorsQuery, ...queryParams);
     
     // Count total vendors (for pagination)
     let countQuery = vendorsQuery.replace('SELECT v.*', 'SELECT COUNT(*)');
