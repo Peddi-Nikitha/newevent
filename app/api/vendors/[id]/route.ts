@@ -49,7 +49,7 @@ export async function GET(
       // Format the data for the frontend
       const formattedVendor = {
         id: vendor.id,
-        businessName: vendor.businessname || 'Unknown Business',
+        businessname: vendor.businessname || 'Unknown Business',
         category: vendor.category || 'OTHER',
         location: vendor.location || 'Unknown Location',
         minPrice: vendor.minprice || 0,
