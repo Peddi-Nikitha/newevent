@@ -44,7 +44,7 @@ export async function GET(
         LIMIT 5
       `;
       
-      const reviews = await prisma.$queryRawUnsafe(reviewsQuery, id);
+      const reviews = await prisma.$queryRawUnsafe<any[]>(reviewsQuery, id);
       
       // Format the data for the frontend
       const formattedVendor = {
