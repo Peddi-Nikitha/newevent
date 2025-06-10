@@ -47,7 +47,7 @@ export async function PUT(request: NextRequest) {
     }
     
     // Verify the current password
-    const isPasswordValid = await bcrypt.compare(currentPassword, user.passwordHash);
+    const isPasswordValid = await bcrypt.compare(currentPassword, user.passwordhash);
     
     if (!isPasswordValid) {
       return NextResponse.json(
@@ -62,7 +62,7 @@ export async function PUT(request: NextRequest) {
     // Update the password
     await prisma.user.update({
       where: { id: userId },
-      data: { passwordHash: hashedPassword },
+      data: { passwordhash: hashedPassword },
     });
     
     return NextResponse.json({
