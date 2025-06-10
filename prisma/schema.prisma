@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  fullname     String   @db.VarChar(255)
+  email        String   @unique @db.VarChar(255)
+  phone        String?  @db.VarChar(255)
+  passwordhash String
+  role         String   @db.VarChar(50)
+  createdat    DateTime @default(now()) @db.Timestamp(6)
+  updatedat    DateTime @default(now()) @db.Timestamp(6)
+  Event        Event[]
+  Review       Review[]
+  Vendor       Vendor?
+}
+
+model Vendor {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userid       String        @unique @db.Uuid
+  businessname String        @db.VarChar(255)
+  category     String        @db.VarChar(50)
+  location     String        @db.VarChar(255)
+  minprice     Int
+  maxprice     Int
+  rating       Float?        @default(0)
+  description  String
+  profileimg   String?
+  EventVendor  EventVendor[]
+  Review       Review[]
+  Service      Service[]
+  User         User          @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model Service {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  vendorid     String        @db.Uuid
+  title        String        @db.VarChar(255)
+  description  String
+  price        Int
+  availability Json?
+  EventVendor  EventVendor[]
+  Vendor       Vendor        @relation(fields: [vendorid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model Event {
+  id          String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userid      String        @db.Uuid
+  eventtype   String        @db.VarChar(50)
+  location    String        @db.VarChar(255)
+  date        DateTime      @db.Date
+  budget      Int
+  imageUrl    String?
+  createdat   DateTime      @default(now()) @db.Timestamp(6)
+  updatedat   DateTime      @default(now()) @db.Timestamp(6)
+  User        User          @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  EventVendor EventVendor[]
+  Review      Review[]
+}
+
+model EventVendor {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  eventid     String   @db.Uuid
+  vendorid    String   @db.Uuid
+  serviceid   String   @db.Uuid
+  agreedprice Int
+  status      String   @db.VarChar(50)
+  createdat   DateTime @default(now()) @db.Timestamp(6)
+  updatedat   DateTime @default(now()) @db.Timestamp(6)
+  Event       Event    @relation(fields: [eventid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  Service     Service  @relation(fields: [serviceid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  Vendor      Vendor   @relation(fields: [vendorid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model Review {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userid     String   @db.Uuid
+  vendorid   String   @db.Uuid
+  eventid    String   @db.Uuid
+  rating     Int
+  reviewtext String?
+  createdat  DateTime @default(now()) @db.Timestamp(6)
+  Event      Event    @relation(fields: [eventid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  User       User     @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  Vendor     Vendor   @relation(fields: [vendorid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+enum UserRole {
+  CUSTOMER
+  VENDOR
+  ADMIN
+}
+
+enum VendorCategory {
+  PHOTOGRAPHY
+  CATERING
+  MUSIC
+  VENUE
+  DECORATION
+  CAKE
+  FLOWERS
+  DRESS
+  MAKEUP
+  TRANSPORTATION
+  OTHER
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  PAID
+  CANCELLED
+}
+
+enum EventType {
+  WEDDING
+  BIRTHDAY
+  CORPORATE
+  BABY_SHOWER
+  ANNIVERSARY
+  GRADUATION
+  HOLIDAY
+  OTHER
+  CONFERENCE
+  SEMINAR
+  WORKSHOP
+  GALA
+  FUNDRAISER
+  SPORTING_EVENT
+  FESTIVAL
+  TRADE_SHOW
+  ART_EXHIBITION
+  MUSIC_CONCERT
+}
