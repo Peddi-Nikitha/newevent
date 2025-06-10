@@ -17,9 +17,9 @@ export async function PUT(request: NextRequest) {
     }
     
     const userId = session.user.id;
-    const { fullName, phone } = await request.json();
+    const { fullname, phone } = await request.json();
     
-    if (!fullName) {
+    if (!fullname) {
       return NextResponse.json(
         { message: 'Full name is required' },
         { status: 400 }
@@ -29,7 +29,7 @@ export async function PUT(request: NextRequest) {
     const updatedUser = await prisma.user.update({
       where: { id: userId },
       data: {
-        fullName,
+        fullname,
         phone: phone || null,
       },
     });
@@ -38,7 +38,7 @@ export async function PUT(request: NextRequest) {
       message: 'Profile updated successfully',
       user: {
         id: updatedUser.id,
-        fullName: updatedUser.fullName,
+        fullname: updatedUser.fullname,
         email: updatedUser.email,
         phone: updatedUser.phone,
       },
