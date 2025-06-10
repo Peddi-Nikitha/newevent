@@ -231,8 +231,8 @@ async function main() {
   // Create a sample event
   const event = await prisma.event.create({
     data: {
-      userId: customer.id,
-      eventType: EventType.WEDDING,
+      userid: customer.id,
+      eventtype: EventType.WEDDING,
       location: 'New York, NY',
       date: new Date('2023-12-15'),
       budget: 15000,
@@ -253,23 +253,24 @@ async function main() {
     });
 
     if (photoService && venueService) {
-      // Create bookings
+      // Create booking for photography service
       await prisma.eventVendor.create({
         data: {
-          eventId: event.id,
+          eventid: event.id,
           vendorid: photoVendorData.id,
           serviceid: photoService.id,
-          agreedPrice: photoService.price,
+          agreedprice: photoService.price,
           status: 'CONFIRMED',
         },
       });
 
+      // Create booking for venue service
       await prisma.eventVendor.create({
         data: {
-          eventId: event.id,
+          eventid: event.id,
           vendorid: venueVendorData.id,
           serviceid: venueService.id,
-          agreedPrice: venueService.price,
+          agreedprice: venueService.price,
           status: 'CONFIRMED',
         },
       });
