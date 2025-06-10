@@ -125,7 +125,7 @@ async function main() {
   // Create services for vendors
   // Photography services
   const photoVendorData = await prisma.vendor.findUnique({
-    where: { userId: photoVendor.id },
+    where: { userid: photoVendor.id },
   });
 
   if (photoVendorData) {
@@ -134,19 +134,19 @@ async function main() {
         title: 'Basic Wedding Package',
         description: '6 hours of coverage, 1 photographer, 200 edited digital photos, online gallery',
         price: 1200,
-        vendorId: photoVendorData.id,
+        vendorid: photoVendorData.id,
       },
       {
         title: 'Premium Wedding Package',
         description: '10 hours of coverage, 2 photographers, engagement session, 500 edited digital photos, online gallery, wedding album',
         price: 2500,
-        vendorId: photoVendorData.id,
+        vendorid: photoVendorData.id,
       },
       {
         title: 'Corporate Event Coverage',
         description: '4 hours of coverage, 1 photographer, 100 edited digital photos, online gallery',
         price: 800,
-        vendorId: photoVendorData.id,
+        vendorid: photoVendorData.id,
       },
     ];
 
@@ -160,7 +160,7 @@ async function main() {
 
   // Catering services
   const cateringVendorData = await prisma.vendor.findUnique({
-    where: { userId: cateringVendor.id },
+    where: { userid: cateringVendor.id },
   });
 
   if (cateringVendorData) {
@@ -169,19 +169,19 @@ async function main() {
         title: 'Buffet Style - Standard',
         description: 'Selection of appetizers, 2 main courses, 3 sides, dessert. $25 per person, 50 person minimum',
         price: 1250,
-        vendorId: cateringVendorData.id,
+        vendorid: cateringVendorData.id,
       },
       {
         title: 'Plated Dinner - Premium',
         description: 'Elegant plated service with 3-course meal including appetizer, main course, and dessert. $45 per person, 30 person minimum',
         price: 1350,
-        vendorId: cateringVendorData.id,
+        vendorid: cateringVendorData.id,
       },
       {
         title: 'Cocktail Reception',
         description: 'Passed hors d\'oeuvres, charcuterie display, and beverage service. $35 per person, 40 person minimum',
         price: 1400,
-        vendorId: cateringVendorData.id,
+        vendorid: cateringVendorData.id,
       },
     ];
 
@@ -195,7 +195,7 @@ async function main() {
 
   // Venue services
   const venueVendorData = await prisma.vendor.findUnique({
-    where: { userId: venueVendor.id },
+    where: { userid: venueVendor.id },
   });
 
   if (venueVendorData) {
@@ -204,19 +204,19 @@ async function main() {
         title: 'Grand Ballroom - Weekend',
         description: 'Our largest space accommodating up to 300 guests. Includes tables, chairs, basic linens, and setup/cleanup. Available Friday-Sunday.',
         price: 6000,
-        vendorId: venueVendorData.id,
+        vendorid: venueVendorData.id,
       },
       {
         title: 'Grand Ballroom - Weekday',
         description: 'Our largest space accommodating up to 300 guests. Includes tables, chairs, basic linens, and setup/cleanup. Available Monday-Thursday.',
         price: 4000,
-        vendorId: venueVendorData.id,
+        vendorid: venueVendorData.id,
       },
       {
         title: 'Garden Terrace',
         description: 'Beautiful outdoor space for ceremonies or receptions. Accommodates up to 150 guests. Includes garden chairs and setup/cleanup.',
         price: 3500,
-        vendorId: venueVendorData.id,
+        vendorid: venueVendorData.id,
       },
     ];
 
@@ -245,11 +245,11 @@ async function main() {
   if (photoVendorData && venueVendorData) {
     // Find a service for each vendor
     const photoService = await prisma.service.findFirst({
-      where: { vendorId: photoVendorData.id },
+      where: { vendorid: photoVendorData.id },
     });
     
     const venueService = await prisma.service.findFirst({
-      where: { vendorId: venueVendorData.id },
+      where: { vendorid: venueVendorData.id },
     });
 
     if (photoService && venueService) {
@@ -257,8 +257,8 @@ async function main() {
       await prisma.eventVendor.create({
         data: {
           eventId: event.id,
-          vendorId: photoVendorData.id,
-          serviceId: photoService.id,
+          vendorid: photoVendorData.id,
+          serviceid: photoService.id,
           agreedPrice: photoService.price,
           status: 'CONFIRMED',
         },
@@ -267,8 +267,8 @@ async function main() {
       await prisma.eventVendor.create({
         data: {
           eventId: event.id,
-          vendorId: venueVendorData.id,
-          serviceId: venueService.id,
+          vendorid: venueVendorData.id,
+          serviceid: venueService.id,
           agreedPrice: venueService.price,
           status: 'CONFIRMED',
         },
