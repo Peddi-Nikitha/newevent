@@ -68,7 +68,7 @@ export async function GET(
           rating: review.rating || 5,
           reviewText: review.reviewtext || '',
           user: {
-            fullName: 'Anonymous User', // Simplified version without joining user table
+            fullname: 'Anonymous User', // Simplified version without joining user table
           },
           createdAt: review.createdat ? new Date(review.createdat).toISOString() : new Date().toISOString(),
         })),
