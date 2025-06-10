@@ -17,7 +17,7 @@ export async function GET(
         WHERE v.id = $1
       `;
       
-      const vendorResult = await prisma.$queryRawUnsafe(vendorQuery, id);
+      const vendorResult = await prisma.$queryRawUnsafe<any[]>(vendorQuery, id);
       
       if (!vendorResult || vendorResult.length === 0) {
         // If no vendor is found with the ID, try to use mock data
