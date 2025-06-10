@@ -33,7 +33,7 @@ export async function GET(
         WHERE s."vendorid" = $1
       `;
       
-      const services = await prisma.$queryRawUnsafe(servicesQuery, id);
+      const services = await prisma.$queryRawUnsafe<any[]>(servicesQuery, id);
       
       // Fetch reviews - simplified version without user details
       const reviewsQuery = `
