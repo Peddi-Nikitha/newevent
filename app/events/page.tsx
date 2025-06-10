@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import MainLayout from '../../components/layout/MainLayout';
 import Link from 'next/link';
@@ -66,6 +66,14 @@ const budgetOptions = [
 ];
 
 export default function EventsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EventsContent />
+    </Suspense>
+  );
+}
+
+function EventsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   
